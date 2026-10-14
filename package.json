@@ -2,19 +2,18 @@
   "name": "template-pure-javascript",
   "version": "1.0.0",
   "private": true,
-  "engines": {
-    "node": ">=24 <25",
-    "pnpm": ">=10 <11"
-  },
+  "files": [
+    "build/compiled"
+  ],
   "scripts": {
-    "clean": "rm -rf node_modules dist && pnpm run printSuccess",
-    "build": "pnpm install --frozen-lockfile && pnpm run check && tsc && pnpm run test && pnpm run containerImageBuild && pnpm run printSuccess",
+    "clean": "rm -rf node_modules build && pnpm run printSuccess",
+    "build": "pnpm install --frozen-lockfile && pnpm run check && pnpm run compile && pnpm run test && pnpm run packageExecutable && pnpm run printSuccess",
     "check": "pnpm run lint",
     "lint": "eslint",
     "test": "jest",
-    "containerImageBuild": "pnpm prune --prod && { podman build -q -t $npm_package_name:latest . && podman save -o dist/container-image.tar $npm_package_name:latest; RET=$?; pnpm install --frozen-lockfile; exit $RET; }",
     "printSuccess": "printf '\\033[0;32mBUILD SUCCEEDED\\033[0m\n'",
-    "executeContainerImageSmokeTest": "pnpm run build && podman run --rm $npm_package_name:latest"
+    "compile": "rm -rf build/compiled build/release/executable && tsc",
+    "packageExecutable": "pnpm --filter . deploy --prod --offline build/release/executable && cd build/release/executable && mv build/compiled/* . && rm -rf build"
   },
   "devDependencies": {
     "@types/jest": "^30.0.0",

@@ -6,7 +6,7 @@
     "module": "commonjs",
 
     "rootDir": "src/main",
-    "outDir": "dist/application",
+    "outDir": "build/compiled",
 
     "sourceMap": true,
     "esModuleInterop": true,

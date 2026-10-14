@@ -18,7 +18,7 @@ module.exports = {
   ],
   passWithNoTests: false,
   collectCoverage: true,
-  coverageDirectory: 'dist/coverage',
+  coverageDirectory: 'build/coverage',
   coverageReporters: ['text', 'lcov', 'html'],
   coverageThreshold: {
     global: {

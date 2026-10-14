@@ -64,11 +64,11 @@ update_nix_flake_lockfile() {
 }
 
 print_node_and_tsdk_paths_for_ide() {
-  node_path="$(nix ${NIX_FLAGS} develop "${SCRIPT_DIR}" --command sh -c 'command -v node')"
+  node_path="$(nix ${NIX_FLAGS} develop --no-update-lock-file "${SCRIPT_DIR}" --command sh -c 'command -v node')"
   if [ -z "$node_path" ]; then
     fail "Node is not available inside the nix develop environment; ensure your flake exposes nodejs."
   fi
-  pnpm_path="$(nix ${NIX_FLAGS} develop "${SCRIPT_DIR}" --command sh -c 'command -v pnpm')"
+  pnpm_path="$(nix ${NIX_FLAGS} develop --no-update-lock-file "${SCRIPT_DIR}" --command sh -c 'command -v pnpm')"
   if [ -z "$pnpm_path" ]; then
     fail "pnpm is not available inside the nix develop environment; ensure your flake exposes pnpm."
   fi
@@ -87,7 +87,7 @@ print_build_start_log() {
 }
 
 pnpm_handoff() {
-  exec nix ${NIX_FLAGS} develop "${SCRIPT_DIR}" --command sh -c 'cd "$1" && shift && pnpm "$@"' _ "${SCRIPT_DIR}" "$@"
+  exec nix ${NIX_FLAGS} develop --no-update-lock-file "${SCRIPT_DIR}" --command sh -c 'cd "$1" && shift && pnpm "$@"' _ "${SCRIPT_DIR}" "$@"
 }
 
 main() {
