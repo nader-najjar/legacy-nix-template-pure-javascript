@@ -28,8 +28,7 @@ JavaScript best practices.
 * Runs ESLint
 * Compiles TypeScript code into JavaScript
 * Runs unit tests with code coverage thresholds enforced
-* Builds a container image with Podman, set to run the code entrypoint (tagged `<project-name>:latest`)
-* Saves the image as `dist/container-image.tar`
+* Produces a self-contained runtime under `build/release/executable`, with compiled JavaScript and production dependencies; local builds do not construct an image
 
 ### `./universal-build clean`
 
@@ -95,6 +94,8 @@ Follow the instructions here: <https://nader-najjar.notion.site/Visual-Studio-Co
 &nbsp;
 
 ## 6. References
+
+* [Build and OCI Image Packaging](https://app.notion.com/p/3f90a2b787558157a5c2cf7a9b7e92cc?pvs=204)
 
 ### Nix
 
