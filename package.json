@@ -2,7 +2,6 @@
   "name": "template-pure-javascript",
   "version": "1.0.0",
   "private": true,
-  "main": "Main.js",
   "files": [
     "build/compiled"
   ],

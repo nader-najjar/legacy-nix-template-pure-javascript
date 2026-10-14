@@ -74,4 +74,4 @@ RUN printf '%s\n' \
   chmod +x /custom-software/runtime-workspace/run-executable
 
 ENTRYPOINT ["/custom-software/runtime-workspace/run-executable"]
-CMD ["/custom-software/runtime-workspace/executable"]
+CMD ["/custom-software/runtime-workspace/executable/Main.js"]
