@@ -1,9 +1,9 @@
 import 'reflect-metadata';
 import type { Container } from 'inversify';
-import { createInversifyContainer } from './bootstrap/injection/Container';
-import { Executor } from './bootstrap/logic/Executor';
-import { LifecycleManager } from './LifecycleManager';
-import { logger } from './shared/utilities/LoggerUtility';
+import { createInversifyContainer } from './bootstrap/injection/Container.ts';
+import { Executor } from './bootstrap/logic/Executor.ts';
+import { LifecycleManager } from './LifecycleManager.ts';
+import { logger } from './shared/utilities/LoggerUtility.ts';
 
 /**
  * Application entry point.
@@ -13,13 +13,11 @@ import { logger } from './shared/utilities/LoggerUtility';
  *   - LifecycleManager.ts
  *   - bootstrap/injection/*
  */
-if (require.main === module) {
-  main(process.argv.slice(2));
-}
+main(process.argv.slice(2));
 
-export function main(args: string[]): void {
+function main(args: string[]): void {
   LifecycleManager.registerShutdownHook();
-  let container: Container | undefined = undefined;
+  let container: Container | undefined;
   let exitCode = 0;
 
   try {

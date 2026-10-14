@@ -1,5 +1,5 @@
 import { injectable } from 'inversify';
-import { logger } from '../../shared/utilities/LoggerUtility';
+import { logger } from '../../shared/utilities/LoggerUtility.ts';
 
 /**
  * Main business logic executor.
