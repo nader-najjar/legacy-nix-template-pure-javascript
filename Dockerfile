@@ -54,7 +54,7 @@ RUN mkdir -p /custom-software/runtime-workspace && \
 #     - Copies the compiled application and production dependencies from the fleet release artifact
 #
 
-COPY --chown=${OS_USER}:${OS_USER_GROUP} executable/ /custom-software/runtime-workspace/executable/
+COPY executable /custom-software/runtime-workspace/executable
 
 #
 # 5. Runtime wrapper and entrypoint
@@ -70,8 +70,8 @@ RUN printf '%s\n' \
   'set +a' \
   'export NODE_ENV=production' \
   'exec node --enable-source-maps "$@"' \
-  > /custom-software/runtime-workspace/run-application && \
-  chmod +x /custom-software/runtime-workspace/run-application
+  > /custom-software/runtime-workspace/run-executable && \
+  chmod +x /custom-software/runtime-workspace/run-executable
 
-ENTRYPOINT ["/custom-software/runtime-workspace/run-application"]
+ENTRYPOINT ["/custom-software/runtime-workspace/run-executable"]
 CMD ["/custom-software/runtime-workspace/executable"]
