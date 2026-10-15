@@ -1,23 +1,63 @@
 import eslint from '@eslint/js';
 import stylistic from '@stylistic/eslint-plugin';
+import { defineConfig } from 'eslint/config';
+import n from 'eslint-plugin-n';
+import sonarjs from 'eslint-plugin-sonarjs';
+import unicorn from 'eslint-plugin-unicorn';
 import tseslint from 'typescript-eslint';
 
-export default tseslint.config(
+export default defineConfig(
   { ignores: ['build/**', 'node_modules/**'] },
+  eslint.configs.recommended,
+  tseslint.configs.strictTypeChecked,
+  tseslint.configs.stylisticTypeChecked,
+  stylistic.configs.customize({
+    indent: 2,
+    quotes: 'single',
+    semi: true,
+    commaDangle: 'never',
+    braceStyle: '1tbs',
+    arrowParens: true
+  }),
   {
-    files: ['**/*.ts', '**/*.tsx'],
-    extends: [eslint.configs.recommended, ...tseslint.configs.recommended],
     languageOptions: {
       parserOptions: {
-        projectService: true,
+        projectService: { allowDefaultProject: ['eslint.config.js'] },
         tsconfigRootDir: import.meta.dirname
       }
     },
-    plugins: {
-      '@stylistic': stylistic
-    },
     rules: {
-      '@stylistic/max-len': ['error', { code: 120, tabWidth: 2 }]
+      '@stylistic/max-len': ['error', { code: 120 }],
+      '@typescript-eslint/consistent-type-imports': 'error',
+      '@typescript-eslint/explicit-function-return-type': 'error',
+      '@typescript-eslint/explicit-member-accessibility': 'error',
+      '@typescript-eslint/strict-boolean-expressions': 'error',
+      '@typescript-eslint/switch-exhaustiveness-check': 'error'
+    }
+  },
+  {
+    files: ['src/**/*.ts'],
+    extends: [unicorn.configs.recommended, sonarjs.configs.recommended, n.configs['flat/recommended-module']],
+    rules: {
+      'n/no-missing-import': 'off',
+      'unicorn/consistent-boolean-name': 'off',
+      'unicorn/consistent-class-member-order': 'off',
+      'unicorn/filename-case': 'off',
+      'unicorn/name-replacements': 'off'
+    }
+  },
+  {
+    files: ['src/main/Main.ts'],
+    rules: {
+      'n/no-process-exit': 'off',
+      'unicorn/no-process-exit': 'off',
+      'unicorn/no-top-level-assignment-in-function': 'off'
+    }
+  },
+  {
+    files: ['src/test/**/*.ts'],
+    rules: {
+      '@typescript-eslint/unbound-method': 'off'
     }
   }
 );
