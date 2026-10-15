@@ -1,8 +1,12 @@
 {
   "entry": [
-    "src/main/Main.ts"
+    "src/main/Main.ts",
+    "src/main/LambdaHandler.ts"
   ],
   "project": [
     "src/**/*.ts"
+  ],
+  "ignoreDependencies": [
+    "aws-lambda-ric"
   ]
 }
