@@ -16,7 +16,7 @@ export default defineConfig({
       enabled: true,
       provider: 'v8',
       include: ['src/main/**/*.ts'],
-      exclude: ['src/main/Main.ts', 'src/main/LifecycleManager.ts', 'src/main/bootstrap/injection/**'],
+      exclude: ['src/main/Main.ts', 'src/main/composition/**'],
       reportsDirectory: 'build/coverage',
       reporter: ['text', 'html', 'lcov'],
       thresholds: { statements: 80, branches: 80, functions: 80, lines: 80 }

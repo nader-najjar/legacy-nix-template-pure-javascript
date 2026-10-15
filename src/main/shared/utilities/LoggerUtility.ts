@@ -1,9 +1,18 @@
-import pino from 'pino';
+import pino, { type Logger } from 'pino';
 
-const level = process.env['LOG_LEVEL'] ?? 'info';
+const rootLogger = pino(
+  {
+    level: process.env['LOG_LEVEL']?.toLowerCase() ?? 'info',
+    messageKey: 'message',
+    timestamp: pino.stdTimeFunctions.isoTime,
+    formatters: {
+      bindings: () => ({}),
+      level: (label) => ({ level: label.toUpperCase() })
+    }
+  },
+  pino.destination({ dest: 1, sync: true })
+);
 
-export const logger = pino({
-  level,
-  messageKey: 'message',
-  base: null
-});
+export function getLogger(loggerName: string): Logger {
+  return rootLogger.child({ loggerName });
+}

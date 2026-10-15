@@ -7,16 +7,18 @@ beforeEach(() => {
 describe('LoggerUtility', () => {
   it('defaults to informational logging without process metadata', async () => {
     vi.stubEnv('LOG_LEVEL', undefined);
-    const { logger } = await import('../../../main/shared/utilities/LoggerUtility.ts');
+    const { getLogger } = await import('../../../main/shared/utilities/LoggerUtility.ts');
+    const logger = getLogger('test');
 
     expect(logger.isLevelEnabled('info')).toBe(true);
     expect(logger.isLevelEnabled('debug')).toBe(false);
-    expect(logger.bindings()).toEqual({});
+    expect(logger.bindings()).toEqual({ loggerName: 'test' });
   });
 
   it('enables debug logging when configured', async () => {
     vi.stubEnv('LOG_LEVEL', 'debug');
-    const { logger } = await import('../../../main/shared/utilities/LoggerUtility.ts');
+    const { getLogger } = await import('../../../main/shared/utilities/LoggerUtility.ts');
+    const logger = getLogger('test');
 
     expect(logger.isLevelEnabled('debug')).toBe(true);
   });
