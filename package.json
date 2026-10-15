@@ -2,32 +2,34 @@
   "name": "template-pure-javascript",
   "version": "1.0.0",
   "private": true,
+  "type": "module",
   "files": [
     "build/compiled"
   ],
   "scripts": {
     "clean": "rm -rf node_modules build && pnpm run printSuccess",
     "build": "pnpm install --frozen-lockfile && pnpm run check && pnpm run compile && pnpm run test && pnpm run packageExecutable && pnpm run printSuccess",
-    "check": "pnpm run lint",
-    "lint": "eslint",
-    "test": "jest",
+    "check": "tsc -p tsconfig.json && eslint --max-warnings 0 . && depcruise src && knip",
+    "test": "vitest run",
     "printSuccess": "printf '\\033[0;32mBUILD SUCCEEDED\\033[0m\n'",
-    "compile": "rm -rf build/compiled build/release/executable && tsc",
+    "compile": "rm -rf build/compiled build/release/executable && tsc -p tsconfig.build.json",
     "packageExecutable": "pnpm --filter . deploy --prod --offline build/release/executable && cd build/release/executable && mv build/compiled/* . && rm -rf build"
   },
   "devDependencies": {
-    "@types/jest": "^30.0.0",
-    "@types/node": "^25.0.3",
-    "@typescript-eslint/eslint-plugin": "^8.48.1",
-    "@typescript-eslint/parser": "^8.48.1",
-    "eslint": "^9.39.1",
-    "jest": "^30.2.0",
-    "ts-jest": "^29.4.6",
-    "typescript": "^5.9.3"
+    "@eslint/js": "10.0.1",
+    "@stylistic/eslint-plugin": "5.10.0",
+    "@types/node": "^24.19.1",
+    "@vitest/coverage-v8": "5.0.3",
+    "dependency-cruiser": "18.5.0",
+    "eslint": "^10.11.0",
+    "knip": "6.39.0",
+    "typescript": "^6.0.3",
+    "typescript-eslint": "8.71.0",
+    "vitest": "5.0.3"
   },
   "dependencies": {
-    "inversify": "^7.10.8",
-    "pino": "^10.1.0",
-    "reflect-metadata": "^0.2.2"
+    "inversify": "^8.2.3",
+    "pino": "^10.3.1",
+    "reflect-metadata": "0.2.2"
   }
 }

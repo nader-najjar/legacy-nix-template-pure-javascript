@@ -1,5 +1,5 @@
 import 'reflect-metadata';
-import { Container, ContainerOptions } from 'inversify';
+import { Container, type ContainerOptions } from 'inversify';
 
 export function createInversifyContainer(): Container {
   const containerOptions: ContainerOptions = {

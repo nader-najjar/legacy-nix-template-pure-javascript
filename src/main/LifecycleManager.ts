@@ -1,4 +1,4 @@
-import { logger } from './shared/utilities/LoggerUtility';
+import { logger } from './shared/utilities/LoggerUtility.ts';
 
 /**
  * Manages application lifecycle and graceful shutdown.

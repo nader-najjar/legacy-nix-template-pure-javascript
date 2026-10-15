@@ -1,12 +1,13 @@
-import { Executor } from '../../../main/bootstrap/logic/Executor';
-import { logger } from '../../../main/shared/utilities/LoggerUtility';
+import { describe, expect, it, vi } from 'vitest';
+import { Executor } from '../../../main/bootstrap/logic/Executor.ts';
+import { logger } from '../../../main/shared/utilities/LoggerUtility.ts';
 
-jest.mock('../../../main/shared/utilities/LoggerUtility', () => {
+vi.mock('../../../main/shared/utilities/LoggerUtility.ts', () => {
   return {
     logger: {
-      info: jest.fn(),
-      error: jest.fn(),
-      debug: jest.fn()
+      info: vi.fn(),
+      error: vi.fn(),
+      debug: vi.fn()
     }
   };
 });

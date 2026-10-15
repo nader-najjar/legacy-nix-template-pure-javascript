@@ -25,7 +25,7 @@ JavaScript best practices.
 ### `./universal-build build`
 
 * Installs dependencies according to the pnpm lockfile
-* Runs ESLint
+* Checks types, lint, dependency boundaries, and unused code/dependencies
 * Compiles TypeScript code into JavaScript
 * Runs unit tests with code coverage thresholds enforced
 * Produces a self-contained runtime under `build/release/executable`, with compiled JavaScript and production dependencies; local builds do not construct an image

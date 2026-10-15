@@ -1,26 +1,23 @@
-const tsPlugin = require('@typescript-eslint/eslint-plugin');
-const tsParser = require('@typescript-eslint/parser');
+import eslint from '@eslint/js';
+import stylistic from '@stylistic/eslint-plugin';
+import tseslint from 'typescript-eslint';
 
-module.exports = [
-  {
-    ignores: ['build/**', 'node_modules/**']
-  },
+export default tseslint.config(
+  { ignores: ['build/**', 'node_modules/**'] },
   {
     files: ['**/*.ts', '**/*.tsx'],
+    extends: [eslint.configs.recommended, ...tseslint.configs.recommended],
     languageOptions: {
-      parser: tsParser,
       parserOptions: {
-        project: './tsconfig.eslint.json',
-        sourceType: 'module',
-        ecmaVersion: 'latest'
+        projectService: true,
+        tsconfigRootDir: import.meta.dirname
       }
     },
     plugins: {
-      '@typescript-eslint': tsPlugin
+      '@stylistic': stylistic
     },
     rules: {
-      ...tsPlugin.configs.recommended.rules,
-      'max-len': ['error', { code: 120, tabWidth: 2 }]
+      '@stylistic/max-len': ['error', { code: 120, tabWidth: 2 }]
     }
   }
-];
+);
