@@ -40,6 +40,7 @@ export default defineConfig(
     extends: [unicorn.configs.recommended, sonarjs.configs.recommended, n.configs['flat/recommended-module']],
     rules: {
       'n/no-missing-import': 'off',
+      'n/no-unsupported-features/node-builtins': 'off',
       'unicorn/consistent-boolean-name': 'off',
       'unicorn/consistent-class-member-order': 'off',
       'unicorn/filename-case': 'off',
